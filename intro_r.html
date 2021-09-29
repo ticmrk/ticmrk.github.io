@@ -1,0 +1,1329 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Rによる固変分解</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Rによる固変分解">
+  <meta name="author" content="Taichi Kimura">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="libraries/highlighters/highlight.js/css/solarized_light.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  <link rel=stylesheet href="./assets/css/ribbons.css"></link>
+
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="libraries/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="libraries/frameworks/io2012/js/slides" 
+    src="libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  
+  <hgroup class="auto-fadein">
+    <h1>Rによる固変分解</h1>
+    <h2></h2>
+    <p>Taichi Kimura<br/></p>
+  </hgroup>
+  
+  <article></article>  
+  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  
+  <hgroup>
+    <h2>Rの基本操作（電卓としての利用）</h2>
+  </hgroup>
+  
+  <article data-timings="">
+    <p>電卓のように使うこともできる</p>
+
+<pre><code class="r">1 + 2
+</code></pre>
+
+<p>[1] 3</p>
+
+<pre><code class="r">5 - 10
+</code></pre>
+
+<p>[1] -5</p>
+
+<pre><code class="r">3 * 8
+</code></pre>
+
+<p>[1] 24</p>
+
+<pre><code class="r">1 / 2
+</code></pre>
+
+<p>[1] 0.5</p>
+
+  </article>
+  <!-- Presenter Notes -->
+  
+</slide>
+
+<slide class="" id="slide-2" style="background:;">
+  
+  <hgroup>
+    <h2>Rの基本操作（電卓としての利用）</h2>
+  </hgroup>
+  
+  <article data-timings="">
+    <p>べき乗</p>
+
+<pre><code class="r">4 ^ 3
+</code></pre>
+
+<p>[1] 64</p>
+
+<p>平方根</p>
+
+<pre><code class="r">sqrt(2)
+</code></pre>
+
+<p>[1] 1.414214</p>
+
+<p>自然対数</p>
+
+<pre><code class="r">log(2)
+</code></pre>
+
+<p>[1] 0.6931472</p>
+
+  </article>
+  <!-- Presenter Notes -->
+  
+</slide>
+
+<slide class="" id="slide-3" style="background:;">
+  
+  <hgroup>
+    <h2>Rの基本操作（ベクトルの作成）</h2>
+  </hgroup>
+  
+  <article data-timings="">
+    <p><code>c()</code>という関数で，ベクトルを作成できる．
+<code>c(1,3,5)</code>というベクトルの各要素に1を足すという計算は，次のコマンドで実行できる．</p>
+
+<pre><code class="r">c(1,3,5) + 1
+</code></pre>
+
+<p>[1] 2 4 6</p>
+
+  </article>
+  <!-- Presenter Notes -->
+  
+</slide>
+
+<slide class="" id="slide-4" style="background:;">
+  
+  <hgroup>
+    <h2>Rの基本操作（変数の作成）</h2>
+  </hgroup>
+  
+  <article data-timings="">
+    <p>変数の作成もできる．
+変数名は自由だが，数字から始まっていたり，Rがはじめから用意している関数と同じ名前はつけられない．</p>
+
+<pre><code class="r">a &lt;- 2
+b &lt;- 5
+</code></pre>
+
+<p>とすると，<code>a</code>という変数に2，<code>b</code>という変数に5が代入されたことになる．</p>
+
+  </article>
+  <!-- Presenter Notes -->
+  
+</slide>
+
+<slide class="" id="slide-5" style="background:;">
+  
+  <hgroup>
+    <h2>Rの基本操作（変数の作成）</h2>
+  </hgroup>
+  
+  <article data-timings="">
+    <p>変数を使って計算もできる．</p>
+
+<pre><code class="r">a + b
+</code></pre>
+
+<p>[1] 7</p>
+
+<pre><code class="r">a - b
+</code></pre>
+
+<p>[1] -3</p>
+
+<pre><code class="r">a * b
+</code></pre>
+
+<p>[1] 10</p>
+
+<pre><code class="r">a / b
+</code></pre>
+
+<p>[1] 0.4</p>
+
+  </article>
+  <!-- Presenter Notes -->
+  
+</slide>
+
+<slide class="" id="slide-6" style="background:;">
+  
+  <hgroup>
+    <h2>Rの基本操作（変数の作成）</h2>
+  </hgroup>
+  
+  <article data-timings="">
+    <p>変数にベクトルを代入することもできる．</p>
+
+<pre><code class="r">revenue &lt;- c(150, 220, 180, 330, 270, 300)
+cost &lt;- c(120, 180, 140, 220, 110, 100)
+profit &lt;- revenue - cost
+profit
+</code></pre>
+
+<p>[1]  30  40  40 110 160 200</p>
+
+  </article>
+  <!-- Presenter Notes -->
+  
+</slide>
+
+<slide class="" id="slide-7" style="background:;">
+  
+  <hgroup>
+    <h2>Rの基本操作（関数の利用）</h2>
+  </hgroup>
+  
+  <article data-timings="">
+    <p>平均を知りたい場合は<code>mean()</code>関数，中央値を知りたい場合は<code>median()</code>関数を使うことができる．</p>
+
+<pre><code class="r">mean(revenue)
+</code></pre>
+
+<p>[1] 241.6667</p>
+
+<pre><code class="r">median(revenue)
+</code></pre>
+
+<p>[1] 245</p>
+
+  </article>
+  <!-- Presenter Notes -->
+  
+</slide>
+
+<slide class="" id="slide-8" style="background:;">
+  
+  <hgroup>
+    <h2>Rの基本操作（関数の利用）</h2>
+  </hgroup>
+  
+  <article data-timings="">
+    <p>関数に<code>()</code>の中で指定されるものを引数と呼ぶが，Rの関数には複数の引数を取るものがある．
+たとえば，2以上20以下の偶数の数列は，次のようにつくることができる．</p>
+
+<pre><code class="r">seq(from = 2, to = 20, by = 2)
+</code></pre>
+
+<p>[1]  2  4  6  8 10 12 14 16 18 20</p>
+
+  </article>
+  <!-- Presenter Notes -->
+  
+</slide>
+
+<slide class="" id="slide-9" style="background:;">
+  
+  <hgroup>
+    <h2>Rの基本操作（ヘルプ）</h2>
+  </hgroup>
+  
+  <article data-timings="">
+    <p>どのような関数なのか知りたい場合は，ヘルプを利用できる．
+次のように<code>?関数名</code>とコンソールに入力すると，ヘルプが表示される．</p>
+
+<pre><code class="r">?seq
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+  
+</slide>
+
+<slide class="" id="slide-10" style="background:;">
+  
+  <hgroup>
+    <h2>関数の作成</h2>
+  </hgroup>
+  
+  <article data-timings="">
+    <p>Rには，統計分析でよく使われる基本的な関数が予め用意されている．</p>
+
+<p>ただし，「何でもある」わけではないので，<code>function()</code>関数を使って自分で関数を作成することもできる．</p>
+
+<p>たとえば，最大値を求める<code>max()</code>関数と最小値を求める<code>min()</code>関数の結果を並べて表示したい場合には，次のような関数を作成すればよい．</p>
+
+<pre><code class="r">mm &lt;- function(x){
+  c(min(x), max(x))
+}
+</code></pre>
+
+<p>これで，引数<code>x</code>の最大値と最小値を並べて表示する<code>mm()</code>関数が完成した．</p>
+
+<pre><code class="r">mm(revenue)
+</code></pre>
+
+<p>[1] 150 330</p>
+
+  </article>
+  <!-- Presenter Notes -->
+  
+</slide>
+
+<slide class="" id="slide-11" style="background:;">
+  
+  <hgroup>
+    <h2>パッケージの利用</h2>
+  </hgroup>
+  
+  <article data-timings="">
+    <p>Rでは，必要な機能（関数）を自分で追加できるという大きな強みがある．</p>
+
+<p>ただし，必要な機能をすべて自分で作成しようとすると厖大な時間がかかってしまう．</p>
+
+<p>そんな場合には，他のひとが作成した関数を利用させてもらうこともできる．</p>
+
+<p>便利な関数をまとめたものをパッケージと良い，世界中の多くのRユーザがパッケージを作成・公開している．</p>
+
+<p><code>install.packages()</code>関数を利用するか，あるいはRStudioのPackagesタブからインストールすることもできる．</p>
+
+  </article>
+  <!-- Presenter Notes -->
+  
+</slide>
+
+<slide class="" id="slide-12" style="background:;">
+  
+  <hgroup>
+    <h2>Rによるデータ操作</h2>
+  </hgroup>
+  
+  <article data-timings="">
+    <p>データ分析では，CSV形式のデータを利用することが多い．</p>
+
+<p>したがって，ここではまずCSV形式のデータを読み込む方法を解説する．</p>
+
+<p>今日は，eolというデータベースからダウンロードしてきた，ASKULの9年分（2013年〜2021年）の要約損益計算書データを利用する．</p>
+
+<pre><code class="r">askul &lt;- readr::read_csv(&quot;askul.csv&quot;, col_names = FALSE)
+</code></pre>
+
+<pre><code>## Rows: 26 Columns: 10
+</code></pre>
+
+<pre><code>## ─ Column specification ─────────────────────────────────────────────────────────────
+## Delimiter: &quot;,&quot;
+## chr (10): X1, X2, X3, X4, X5, X6, X7, X8, X9, X10
+</code></pre>
+
+<pre><code>## 
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+</code></pre>
+
+<p>csvデータの1列目が変数名になっているようなデータであれば，<code>col_names = FALSE</code>の指定は不要．eolからダウンロードしたデータは，そのようなきれいな形になっていないので，「1列目は変数名ではありませんよ」と指定してあげる必要がある．</p>
+
+<p>Excelデータであれば<code>readxl::read_excel(&quot;foo.xlsx&quot;)</code>，Stataデータであれば<code>haven::read_dta(&quot;foo.dta&quot;)</code>で読み込める．</p>
+
+  </article>
+  <!-- Presenter Notes -->
+  
+</slide>
+
+<slide class="" id="slide-13" style="background:;">
+  
+  <hgroup>
+    <h2>読み込んだデータの確認</h2>
+  </hgroup>
+  
+  <article data-timings="">
+    <p><code>View(askul)</code>でデータの全体像を確認できる．
+<code>head()</code>関数で先頭6行を表示することができる．</p>
+
+<pre><code class="r">head(askul)
+</code></pre>
+
+<pre><code>## # A tibble: 6 × 10
+##   X1           X2             X3             X4             X5             X6             X7             X8             X9             X10        
+##   &lt;chr&gt;        &lt;chr&gt;          &lt;chr&gt;          &lt;chr&gt;          &lt;chr&gt;          &lt;chr&gt;          &lt;chr&gt;          &lt;chr&gt;          &lt;chr&gt;          &lt;chr&gt;      
+## 1 証券コード   2678           2678           2678           2678           2678           2678           2678           2678           2678       
+## 2 EDINETコード E03363         E03363         E03363         E03363         E03363         E03363         E03363         E03363         E03363     
+## 3 企業名       アスクル㈱     アスクル㈱     アスクル㈱     アスクル㈱     アスクル㈱     アスクル㈱     アスクル㈱     アスクル㈱     アスクル㈱ 
+## 4 開示書類     有価証券報告書 有価証券報告書 有価証券報告書 有価証券報告書 有価証券報告書 有価証券報告書 有価証券報告書 有価証券報告書 有価証券報…
+## 5 決算日       2021/05/20     2020/05/20     2019/05/20     2018/05/20     2017/05/20     2016/05/20     2015/05/20     2014/05/20     2013/05/20 
+## 6 提出日       2021/07/30     2020/08/07     2019/07/26     2018/07/27     2017/07/28     2016/07/29     2015/07/31     2014/07/31     2013/07/31
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+  
+</slide>
+
+<slide class="" id="slide-14" style="background:;">
+  
+  <hgroup>
+    <h2>読み込んだデータの確認</h2>
+  </hgroup>
+  
+  <article data-timings="">
+    <p>また，<code>dplyr::glimpse()</code>でも同様の作業を実施可能．</p>
+
+<pre><code class="r">library(dplyr)
+glimpse(askul)
+</code></pre>
+
+<pre><code>## Rows: 26
+## Columns: 10
+## $ X1  &lt;chr&gt; &quot;証券コード&quot;, &quot;EDINETコード&quot;, &quot;企業名&quot;, &quot;開示書類&quot;, &quot;決算日&quot;, &quot;提出日&quot;, &quot;訂正日&quot;, &quot;連結－要約損益（及び包括利益）計算書&quot;, &quot;売上高・…
+## $ X2  &lt;chr&gt; &quot;2678&quot;, &quot;E03363&quot;, &quot;アスクル㈱&quot;, &quot;有価証券報告書&quot;, &quot;2021/05/20&quot;, &quot;2021/07/30&quot;, &quot;--&quot;, NA, &quot;422151&quot;, &quot;317769&quot;, &quot;104378&quot;, &quot;104381&quot;, &quot;904…
+## $ X3  &lt;chr&gt; &quot;2678&quot;, &quot;E03363&quot;, &quot;アスクル㈱&quot;, &quot;有価証券報告書&quot;, &quot;2020/05/20&quot;, &quot;2020/08/07&quot;, &quot;--&quot;, NA, &quot;400376&quot;, &quot;304692&quot;, &quot;95683&quot;, &quot;95683&quot;, &quot;86862…
+## $ X4  &lt;chr&gt; &quot;2678&quot;, &quot;E03363&quot;, &quot;アスクル㈱&quot;, &quot;有価証券報告書&quot;, &quot;2019/05/20&quot;, &quot;2019/07/26&quot;, &quot;--&quot;, NA, &quot;387470&quot;, &quot;295877&quot;, &quot;91606&quot;, &quot;91593&quot;, &quot;87085…
+## $ X5  &lt;chr&gt; &quot;2678&quot;, &quot;E03363&quot;, &quot;アスクル㈱&quot;, &quot;有価証券報告書&quot;, &quot;2018/05/20&quot;, &quot;2018/07/27&quot;, &quot;--&quot;, NA, &quot;360445&quot;, &quot;274918&quot;, &quot;85515&quot;, &quot;85526&quot;, &quot;81323…
+## $ X6  &lt;chr&gt; &quot;2678&quot;, &quot;E03363&quot;, &quot;アスクル㈱&quot;, &quot;有価証券報告書&quot;, &quot;2017/05/20&quot;, &quot;2017/07/28&quot;, &quot;--&quot;, NA, &quot;335914&quot;, &quot;259160&quot;, &quot;76755&quot;, &quot;76754&quot;, &quot;67890…
+## $ X7  &lt;chr&gt; &quot;2678&quot;, &quot;E03363&quot;, &quot;アスクル㈱&quot;, &quot;有価証券報告書&quot;, &quot;2016/05/20&quot;, &quot;2016/07/29&quot;, &quot;--&quot;, NA, &quot;315024&quot;, &quot;244690&quot;, &quot;70328&quot;, &quot;70333&quot;, &quot;61810…
+## $ X8  &lt;chr&gt; &quot;2678&quot;, &quot;E03363&quot;, &quot;アスクル㈱&quot;, &quot;有価証券報告書&quot;, &quot;2015/05/20&quot;, &quot;2015/07/31&quot;, &quot;--&quot;, NA, &quot;276759&quot;, &quot;215948&quot;, &quot;60814&quot;, &quot;60810&quot;, &quot;53965…
+## $ X9  &lt;chr&gt; &quot;2678&quot;, &quot;E03363&quot;, &quot;アスクル㈱&quot;, &quot;有価証券報告書&quot;, &quot;2014/05/20&quot;, &quot;2014/07/31&quot;, &quot;--&quot;, NA, &quot;253408&quot;, &quot;197704&quot;, &quot;55701&quot;, &quot;55703&quot;, &quot;51425…
+## $ X10 &lt;chr&gt; &quot;2678&quot;, &quot;E03363&quot;, &quot;アスクル㈱&quot;, &quot;有価証券報告書&quot;, &quot;2013/05/20&quot;, &quot;2013/07/31&quot;, &quot;--&quot;, NA, &quot;226610&quot;, &quot;175988&quot;, &quot;50613&quot;, &quot;50622&quot;, &quot;43733…
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+  
+</slide>
+
+<slide class="" id="slide-15" style="background:;">
+  
+  <hgroup>
+    <h2>読み込んだデータの確認</h2>
+  </hgroup>
+  
+  <article data-timings="">
+    <p>データを確認する際に重要なのは，データの型．</p>
+
+<table><thead>
+<tr>
+<th align="center">種類</th>
+<th>内容</th>
+</tr>
+</thead><tbody>
+<tr>
+<td align="center">numeric</td>
+<td>実数値データ</td>
+</tr>
+<tr>
+<td align="center">character</td>
+<td>文字列データ</td>
+</tr>
+<tr>
+<td align="center">factor</td>
+<td>因子データ（カテゴリカル・データを扱うときなどに用いられる）</td>
+</tr>
+<tr>
+<td align="center">logical</td>
+<td>TRUEかFALSEか</td>
+</tr>
+</tbody></table>
+
+<p>今回のデータはすべて<code>&lt;chr&gt;</code>．つまり，文字列型のデータとしてRに認識されていることがわかる．本来，売上高などのデータはnumeric型で認識したいので，後で型を修正する．</p>
+
+  </article>
+  <!-- Presenter Notes -->
+  
+</slide>
+
+<slide class="" id="slide-16" style="background:;">
+  
+  <hgroup>
+    <h2>読み込んだデータの確認</h2>
+  </hgroup>
+  
+  <article data-timings="">
+    <pre><code class="r">x &lt;- c(1,2,3)
+x*2
+</code></pre>
+
+<pre><code>## [1] 2 4 6
+</code></pre>
+
+<pre><code class="r">xc &lt;- as.character(x) #文字列型に変換
+xc*2
+</code></pre>
+
+<pre><code>## Error in xc * 2:  二項演算子の引数が数値ではありません
+</code></pre>
+
+<p>このように，文字列型だと演算できない場合がある．</p>
+
+  </article>
+  <!-- Presenter Notes -->
+  
+</slide>
+
+<slide class="" id="slide-17" style="background:;">
+  
+  <hgroup>
+    <h2>分析データの作成</h2>
+  </hgroup>
+  
+  <article data-timings="">
+    <p>読み込みデータに問題がなければ，分析用のデータを作成する．</p>
+
+<p>Rは，基本的に各列で変数を表現するが，現在のデータでは各行が変数になってしまっている．そのため，まずはデータの縦横を入れ替えたい．データの縦横入れ替えは<code>t()</code>関数でできる．</p>
+
+<pre><code class="r">askul_t &lt;- t(askul)
+askul_t &lt;- data.frame(askul_t)
+head(askul_t)
+</code></pre>
+
+<pre><code>##            X1           X2         X3             X4         X5         X6     X7                                   X8
+## X1 証券コード EDINETコード     企業名       開示書類     決算日     提出日 訂正日 連結－要約損益（及び包括利益）計算書
+## X2       2678       E03363 アスクル㈱ 有価証券報告書 2021/05/20 2021/07/30     --                                 &lt;NA&gt;
+## X3       2678       E03363 アスクル㈱ 有価証券報告書 2020/05/20 2020/08/07     --                                 &lt;NA&gt;
+## X4       2678       E03363 アスクル㈱ 有価証券報告書 2019/05/20 2019/07/26     --                                 &lt;NA&gt;
+## X5       2678       E03363 アスクル㈱ 有価証券報告書 2018/05/20 2018/07/27     --                                 &lt;NA&gt;
+## X6       2678       E03363 アスクル㈱ 有価証券報告書 2017/05/20 2017/07/28     --                                 &lt;NA&gt;
+##                                      X9              X10                    X11                X12                                          X13
+## X1 売上高・営業収益・経常収益等[百万円] 売上原価[百万円] 差引売上総利益[百万円] 売上総利益[百万円] 販売費及び一般管理費・その他営業費用[百万円]
+## X2                               422151           317769                 104378             104381                                        90455
+## X3                               400376           304692                  95683              95683                                        86862
+## X4                               387470           295877                  91606              91593                                        87085
+## X5                               360445           274918                  85515              85526                                        81323
+## X6                               335914           259160                  76755              76754                                        67890
+##                 X14                X15                X16              X17              X18              X19                      X20
+## X1 営業利益[百万円] 営業外収益[百万円] 営業外費用[百万円] 経常利益[百万円] 特別利益[百万円] 特別損失[百万円] 税引前当期純利益[百万円]
+## X2            13923                348                421            13850                8             2582                    11277
+## X3             8821                440                606             8656                2              197                     8460
+## X4             4520                324                426             4418               36             3281                     1173
+## X5             4192                184                436             3940            11497             7028                     8409
+## X6             8865                186                184             8866             4946            11643                     2169
+##                 X21                    X22                                        X23
+## X1 法人税等[百万円] 当期純利益\r\n[百万円] 非支配株主に帰属する当期純利益\r\n[百万円]
+## X2             3520                   7756                                         -1
+## X3             2750                   5709                                         56
+## X4              677                    496                                         62
+## X5             3707                   4702                                          8
+## X6             1120                   1049                                         34
+##                                                                   X24                      X25              X26
+## X1 （連）親会社株主に帰属する当期純利益／（単）当期純利益\r\n[百万円] その他の包括利益[百万円] 包括利益[百万円]
+## X2                                                               7758                      -15             7740
+## X3                                                               5652                       11             5720
+## X4                                                                434                      -19              477
+## X5                                                               4693                       32             4735
+## X6                                                               1014                       26             1076
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+  
+</slide>
+
+<slide class="" id="slide-18" style="background:;">
+  
+  <hgroup>
+    <h2>分析データの作成</h2>
+  </hgroup>
+  
+  <article data-timings="">
+    <p>縦横入れ替えができたら，次に1行目を変数名として認識させたい（現状では，1行目も2行目以降と同様のデータとして扱われている）．</p>
+
+<p>列名の設定は，<code>colnames()</code>でできる．手順としては，</p>
+
+<ol>
+<li>1行目の内容を取得する．</li>
+<li>取得した1行目の内容を列名に設定する．</li>
+<li>1行目を削除して，データから各行が始まるようにする．</li>
+</ol>
+
+<pre><code class="r">x &lt;- askul_t[1,] #askul_t[1,]でaskul_tの1行目のデータを持ってくる．
+colnames(askul_t) &lt;- x #まとめてcolnames(askul_t) &lt;- askul_t[1,]でOK．
+head(askul_t)
+</code></pre>
+
+<pre><code>##    証券コード EDINETコード     企業名       開示書類     決算日     提出日 訂正日 連結－要約損益（及び包括利益）計算書
+## X1 証券コード EDINETコード     企業名       開示書類     決算日     提出日 訂正日 連結－要約損益（及び包括利益）計算書
+## X2       2678       E03363 アスクル㈱ 有価証券報告書 2021/05/20 2021/07/30     --                                 &lt;NA&gt;
+## X3       2678       E03363 アスクル㈱ 有価証券報告書 2020/05/20 2020/08/07     --                                 &lt;NA&gt;
+## X4       2678       E03363 アスクル㈱ 有価証券報告書 2019/05/20 2019/07/26     --                                 &lt;NA&gt;
+## X5       2678       E03363 アスクル㈱ 有価証券報告書 2018/05/20 2018/07/27     --                                 &lt;NA&gt;
+## X6       2678       E03363 アスクル㈱ 有価証券報告書 2017/05/20 2017/07/28     --                                 &lt;NA&gt;
+##    売上高・営業収益・経常収益等[百万円] 売上原価[百万円] 差引売上総利益[百万円] 売上総利益[百万円] 販売費及び一般管理費・その他営業費用[百万円]
+## X1 売上高・営業収益・経常収益等[百万円] 売上原価[百万円] 差引売上総利益[百万円] 売上総利益[百万円] 販売費及び一般管理費・その他営業費用[百万円]
+## X2                               422151           317769                 104378             104381                                        90455
+## X3                               400376           304692                  95683              95683                                        86862
+## X4                               387470           295877                  91606              91593                                        87085
+## X5                               360445           274918                  85515              85526                                        81323
+## X6                               335914           259160                  76755              76754                                        67890
+##    営業利益[百万円] 営業外収益[百万円] 営業外費用[百万円] 経常利益[百万円] 特別利益[百万円] 特別損失[百万円] 税引前当期純利益[百万円]
+## X1 営業利益[百万円] 営業外収益[百万円] 営業外費用[百万円] 経常利益[百万円] 特別利益[百万円] 特別損失[百万円] 税引前当期純利益[百万円]
+## X2            13923                348                421            13850                8             2582                    11277
+## X3             8821                440                606             8656                2              197                     8460
+## X4             4520                324                426             4418               36             3281                     1173
+## X5             4192                184                436             3940            11497             7028                     8409
+## X6             8865                186                184             8866             4946            11643                     2169
+##    法人税等[百万円] 当期純利益\r\n[百万円] 非支配株主に帰属する当期純利益\r\n[百万円]
+## X1 法人税等[百万円] 当期純利益\r\n[百万円] 非支配株主に帰属する当期純利益\r\n[百万円]
+## X2             3520                   7756                                         -1
+## X3             2750                   5709                                         56
+## X4              677                    496                                         62
+## X5             3707                   4702                                          8
+## X6             1120                   1049                                         34
+##    （連）親会社株主に帰属する当期純利益／（単）当期純利益\r\n[百万円] その他の包括利益[百万円] 包括利益[百万円]
+## X1 （連）親会社株主に帰属する当期純利益／（単）当期純利益\r\n[百万円] その他の包括利益[百万円] 包括利益[百万円]
+## X2                                                               7758                      -15             7740
+## X3                                                               5652                       11             5720
+## X4                                                                434                      -19              477
+## X5                                                               4693                       32             4735
+## X6                                                               1014                       26             1076
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+  
+</slide>
+
+<slide class="" id="slide-19" style="background:;">
+  
+  <hgroup>
+    <h2>分析データの作成</h2>
+  </hgroup>
+  
+  <article data-timings="">
+    <p>つづき．</p>
+
+<pre><code class="r">askul_t &lt;- askul_t %&gt;% slice(-1)
+head(askul_t)
+</code></pre>
+
+<pre><code>##    証券コード EDINETコード     企業名       開示書類     決算日     提出日 訂正日 連結－要約損益（及び包括利益）計算書
+## X2       2678       E03363 アスクル㈱ 有価証券報告書 2021/05/20 2021/07/30     --                                 &lt;NA&gt;
+## X3       2678       E03363 アスクル㈱ 有価証券報告書 2020/05/20 2020/08/07     --                                 &lt;NA&gt;
+## X4       2678       E03363 アスクル㈱ 有価証券報告書 2019/05/20 2019/07/26     --                                 &lt;NA&gt;
+## X5       2678       E03363 アスクル㈱ 有価証券報告書 2018/05/20 2018/07/27     --                                 &lt;NA&gt;
+## X6       2678       E03363 アスクル㈱ 有価証券報告書 2017/05/20 2017/07/28     --                                 &lt;NA&gt;
+## X7       2678       E03363 アスクル㈱ 有価証券報告書 2016/05/20 2016/07/29     --                                 &lt;NA&gt;
+##    売上高・営業収益・経常収益等[百万円] 売上原価[百万円] 差引売上総利益[百万円] 売上総利益[百万円] 販売費及び一般管理費・その他営業費用[百万円]
+## X2                               422151           317769                 104378             104381                                        90455
+## X3                               400376           304692                  95683              95683                                        86862
+## X4                               387470           295877                  91606              91593                                        87085
+## X5                               360445           274918                  85515              85526                                        81323
+## X6                               335914           259160                  76755              76754                                        67890
+## X7                               315024           244690                  70328              70333                                        61810
+##    営業利益[百万円] 営業外収益[百万円] 営業外費用[百万円] 経常利益[百万円] 特別利益[百万円] 特別損失[百万円] 税引前当期純利益[百万円]
+## X2            13923                348                421            13850                8             2582                    11277
+## X3             8821                440                606             8656                2              197                     8460
+## X4             4520                324                426             4418               36             3281                     1173
+## X5             4192                184                436             3940            11497             7028                     8409
+## X6             8865                186                184             8866             4946            11643                     2169
+## X7             8517                237                180             8574             1855             1859                     8569
+##    法人税等[百万円] 当期純利益\r\n[百万円] 非支配株主に帰属する当期純利益\r\n[百万円]
+## X2             3520                   7756                                         -1
+## X3             2750                   5709                                         56
+## X4              677                    496                                         62
+## X5             3707                   4702                                          8
+## X6             1120                   1049                                         34
+## X7             3388                   5181                                        -74
+##    （連）親会社株主に帰属する当期純利益／（単）当期純利益\r\n[百万円] その他の包括利益[百万円] 包括利益[百万円]
+## X2                                                               7758                      -15             7740
+## X3                                                               5652                       11             5720
+## X4                                                                434                      -19              477
+## X5                                                               4693                       32             4735
+## X6                                                               1014                       26             1076
+## X7                                                               5255                     -304             4876
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+  
+</slide>
+
+<slide class="" id="slide-20" style="background:;">
+  
+  <hgroup>
+    <h2>分析データの作成</h2>
+  </hgroup>
+  
+  <article data-timings="">
+    <p><code>dplyr::slice()</code>`は，特定の行を切り出す関数．</p>
+
+<p>たとえば，以下のように書くと，売上高が最大だった年のデータだけを取り出すこともできる．</p>
+
+<pre><code class="r">maxrev &lt;- askul_t %&gt;% slice(which.max(`売上高・営業収益・経常収益等[百万円]`))
+</code></pre>
+
+<p>さらに，引数にマイナスをつけると，今回のように特定の行を削除できる．</p>
+
+  </article>
+  <!-- Presenter Notes -->
+  
+</slide>
+
+<slide class="" id="slide-21" style="background:;">
+  
+  <hgroup>
+    <h2>パイプ演算子（本題からは逸れますが…）</h2>
+  </hgroup>
+  
+  <article data-timings="">
+    <p><code>%&gt;%</code>はパイプ演算子と呼ばれるもので，<code>magrittr</code>パッケージに含まれている（<code>dplyr</code>を読み込めば自動的に<code>magrittr</code>も読み込まれる）．</p>
+
+<p>パイプ演算子の基本は，演算子（<code>%&gt;%</code>）の左側の処理結果を，演算子の右側の関数の第1引数として利用するということ．</p>
+
+<p>練習のため，東証一部上場企業のうち3月決算の小売企業50社の過去5年間の営業利益に関するデータである<code>kouri.csv</code>データを利用する．なお，Cosは売上原価，GPは粗利益，SGAは販管費，OIは営業利益を示している．</p>
+
+<pre><code class="r">#データ整形
+kouri &lt;- readr::read_csv(&quot;kouri.csv&quot;)
+kouri[,3:7] &lt;- data.frame(lapply(kouri[,3:7], as.numeric)) #型変換．後で説明．
+kouri[,2] &lt;- data.frame(lapply(kouri[,2],as.Date))
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+  
+</slide>
+
+<slide class="" id="slide-22" style="background:;">
+  
+  <hgroup>
+    <h2>パイプ演算子</h2>
+  </hgroup>
+  
+  <article data-timings="">
+    <p><code>kouri.csv</code>データから，2017年3月31日決算のデータだけを抜きだし，営業利益順に並べ替え，第1位から順位をつけ，売上高が50,000百万円以下のデータを除外する，という処理を一気に実行したいとする．</p>
+
+<p>パイプ演算子なしだと，と入れ子で書けばできなくはない…が，読みづらいし，ミスも起きやすい．</p>
+
+<pre><code class="r">X &lt;- filter(
+  mutate(
+    arrange(
+      filter(kouri, year==&quot;2017-03-31&quot;),
+      desc(OI)),
+    order = 1:n()),
+Revenue &gt; 50000)
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+  
+</slide>
+
+<slide class="" id="slide-23" style="background:;">
+  
+  <hgroup>
+    <h2>パイプ演算子</h2>
+  </hgroup>
+  
+  <article data-timings="">
+    <p>パイプ演算子ありなら，以下のように，処理したい順番に直感的に書くことができる．</p>
+
+<pre><code class="r">X &lt;- kouri %&gt;%
+  filter(year == &quot;2017-03-31&quot;) %&gt;%
+  arrange(desc(OI)) %&gt;%
+  mutate(order = 1:n()) %&gt;%
+  filter(Revenue &gt; 50000)
+X
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+  
+</slide>
+
+<slide class="" id="slide-24" style="background:;">
+  
+  <hgroup>
+    <h2>型変換</h2>
+  </hgroup>
+  
+  <article data-timings="">
+    <p>数字のデータも<code>character</code>型になっているので，これを<code>numeric</code>型に戻す．</p>
+
+<p><code>numeric</code>型への変換は，<code>as.numeric()</code>でできる．たとえば，</p>
+
+<pre><code class="r">askul_t[,9] &lt;- as.numeric(askul_t[,9])
+</code></pre>
+
+<p>と書けば，<code>askul_t</code>の9列目を数値型に変換できる．<code>askul_t</code>は9から26列目が本来数字のデータなので，これをあと17回繰り返せば処理できなくはない（が，めんどくさい）．</p>
+
+<p>同じ関数処理を繰り返したい場合は<code>lapply()</code>関数を用いると便利．<code>lapply(X,Y)</code>で，<code>X</code>の範囲に対して，<code>Y</code>という処理を繰り返す．よって，今回の場合は，以下のように書けば一括処理してくれる．</p>
+
+<pre><code class="r">askul_t[,9:26] &lt;- lapply(askul_t[,9:26], as.numeric)
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+  
+</slide>
+
+<slide class="" id="slide-25" style="background:;">
+  
+  <hgroup>
+    <h2>列追加</h2>
+  </hgroup>
+  
+  <article data-timings="">
+    <p>固変分解にあたっては，総原価（=売上原価+販管費）のデータが必要なので，<code>askul_t</code>データに総原価列を追加する．</p>
+
+<p>列追加は<code>mutate()</code>関数でできる．
+今回の場合は，売上原価と販管費の和の列をつくりたいので，以下のように書く．</p>
+
+<pre><code class="r">askul_t &lt;- mutate(askul_t,
+                  総原価 = askul_t$`売上原価[百万円]`+askul_t$`販売費及び一般管理費・その他営業費用[百万円]`)
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+  
+</slide>
+
+<slide class="" id="slide-26" style="background:;">
+  
+  <hgroup>
+    <h2>可視化</h2>
+  </hgroup>
+  
+  <article data-timings="">
+    <p>ここまででデータの前処理は終了．いよいよ，固変分解を実施する．</p>
+
+<p>……が，その前に，データを可視化してみる．</p>
+
+<p>いきなり分析をするのではなくて，散布図などをつくってみて，データの様子を観察することも重要．</p>
+
+<p>今日は<code>ggplot2</code>パッケージを用いて，見やすいグラフづくりを行う．</p>
+
+  </article>
+  <!-- Presenter Notes -->
+  
+</slide>
+
+<slide class="" id="slide-27" style="background:;">
+  
+  <hgroup>
+    <h2>可視化</h2>
+  </hgroup>
+  
+  <article data-timings="">
+    <p>回帰分析法による固変分解は，<code>総原価 = 固定費 + 変動費 × 売上高</code>という関係を想定する．
+したがって，横軸に売上高，縦軸に総原価をとった散布図を書いてみる．</p>
+
+<pre><code class="r">library(ggplot2)
+g &lt;- ggplot(data = askul_t, 
+      mapping = aes(x = `売上高・営業収益・経常収益等[百万円]`, y = 総原価))
+g &lt;- g + xlab(&quot;売上高（百万円）&quot;) + ylab(&quot;総原価（百万円）&quot;)
+g &lt;- g + theme_gray (base_family = &quot;HiraKakuPro-W3&quot;) #（macのみ）日本語の文字化け防止．
+g &lt;- g + geom_point() 
+g &lt;- g + xlim(0, max(askul_t$`売上高・営業収益・経常収益等[百万円]`))
+g &lt;- g + ylim(0, max(askul_t$総原価))
+</code></pre>
+
+<p>まず1行目で，<code>askul_t</code>データを使いますと指定．</p>
+
+<p>2行目：x軸とy軸のラベルを設定．</p>
+
+<p>4行目：散布図を書くことを指定．</p>
+
+<p>5，6行目：軸の範囲を指定（0から売上高，総原価の最大値まで）</p>
+
+  </article>
+  <!-- Presenter Notes -->
+  
+</slide>
+
+<slide class="" id="slide-28" style="background:;">
+  
+  <hgroup>
+    <h2>可視化</h2>
+  </hgroup>
+  
+  <article data-timings="">
+    <pre><code class="r">plot(g)
+</code></pre>
+
+<p><img src="assets/fig/unnamed-chunk-81-1.png" alt="plot of chunk unnamed-chunk-81"></p>
+
+  </article>
+  <!-- Presenter Notes -->
+  
+</slide>
+
+<slide class="" id="slide-29" style="background:;">
+  
+  <hgroup>
+    <h2>可視化</h2>
+  </hgroup>
+  
+  <article data-timings="">
+    <pre><code class="r">g &lt;- g + geom_smooth(method = &quot;lm&quot;, formula = y ~ x) #回帰直線の追加
+plot(g)
+</code></pre>
+
+<pre><code>## Warning: Removed 2 rows containing missing values (geom_smooth).
+</code></pre>
+
+<p><img src="assets/fig/unnamed-chunk-82-1.png" alt="plot of chunk unnamed-chunk-82"></p>
+
+  </article>
+  <!-- Presenter Notes -->
+  
+</slide>
+
+<slide class="" id="slide-30" style="background:;">
+  
+  <hgroup>
+    <h2>可視化</h2>
+  </hgroup>
+  
+  <article data-timings="">
+    <p><code>ggplot2</code>`を使えば，他にもヒストグラムや箱ひげ図なども作成可能．</p>
+
+  </article>
+  <!-- Presenter Notes -->
+  
+</slide>
+
+<slide class="" id="slide-31" style="background:;">
+  
+  <hgroup>
+    <h2>回帰分析</h2>
+  </hgroup>
+  
+  <article data-timings="">
+    <p>回帰分析で固変分解をしてみる．</p>
+
+<pre><code class="r">result &lt;- lm(askul_t$総原価 ~ askul_t$`売上高・営業収益・経常収益等[百万円]`)
+summary(result)
+</code></pre>
+
+<pre><code>## 
+## Call:
+## lm(formula = askul_t$総原価 ~ askul_t$`売上高・営業収益・経常収益等[百万円]`)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -4661.5 -1414.4  -506.5  1590.6  4059.6 
+## 
+## Coefficients:
+##                                                  Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)                                    -769.72567 5185.07457  -0.148    0.886    
+## askul_t$`売上高・営業収益・経常収益等[百万円]`    0.97987    0.01538  63.708 6.17e-11 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 2971 on 7 degrees of freedom
+## Multiple R-squared:  0.9983, Adjusted R-squared:  0.998 
+## F-statistic:  4059 on 1 and 7 DF,  p-value: 6.167e-11
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+  
+</slide>
+
+<slide class="" id="slide-32" style="background:;">
+  
+  <hgroup>
+    <h2>回帰分析</h2>
+  </hgroup>
+  
+  <article data-timings="">
+    <p><code>(Intercept)</code>が固定費部分で，<code>askul_t$売上高・営業収益・経常収益等[百万円]</code>が変動費率．</p>
+
+<p>アスクルのデータでは，負の固定費が推定されてしまうし，変動費率も高すぎるように思われる．</p>
+
+  </article>
+  <!-- Presenter Notes -->
+  
+</slide>
+
+<slide class="" id="slide-33" style="background:;">
+  
+  <hgroup>
+    <h2>回帰分析は役に立たない？</h2>
+  </hgroup>
+  
+  <article data-timings="">
+    <ul>
+<li><p>外部公表データだけを使って固変分解をするのは，結構不正確（特に固定費の推定値は信頼できない）．</p></li>
+<li><p>モデルに改良の余地がないわけではない．</p></li>
+<li><p>負の固定費の原因は自由裁量固定費（売上高や利益に変動して金額が変動する固定費）であると言われている．</p></li>
+<li><p>何らかの方法で自由裁量固定費を外部公表データのみから推定できれば，有用性が高まる可能性はある．</p></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+  
+</slide>
+
+<slide class="" id="slide-34" style="background:;">
+  
+  <hgroup>
+    <h2>回帰分析は役に立たない？</h2>
+  </hgroup>
+  
+  <article data-timings="">
+    <ul>
+<li><p>企業内部であれば，自由裁量固定費を推計することも可能（たとえば，福嶋・新井・松尾 (2014) 「自由裁量費のコスト・ビヘイビアがCVP分析に与える影響：回帰分析による固定費推定の問題」『会計プログレス』15: 26-37）．</p></li>
+<li><p>できるだけ分析単位を小さくして，自由裁量固定費に十分留意すれば，勘定科目法ほどには手間をかけずに固変分解をすることも可能．</p></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+  
+</slide>
+
+<slide class="" id="slide-35" style="background:;">
+  
+  <hgroup>
+    <h2>中間レポート</h2>
+  </hgroup>
+  
+  <article data-timings="">
+    <ol>
+<li><p>負の固定費が推計されるであろう企業と，正の固定費が推計されるであろう企業の特徴を考察し，どのような特徴を持った企業であれば負の固定費が推計されると考えられるか，仮説を提示しなさい．</p></li>
+<li><p>1の考察を踏まえて，東証1部上場企業から正の固定費が推計されるであろう企業を5社，負の固定費が推計されるであろう企業を5社選び，過去5年間（2016〜2020年度）のデータを用いて，Rで回帰分析法による固変分解を行い，その結果を報告しなさい．仮に1の予想に反する結果が出た場合は，その理由も考察しなさい（予想が外れていたことは減点要因にはなりません）．</p></li>
+</ol>
+
+  </article>
+  <!-- Presenter Notes -->
+  
+</slide>
+
+<slide class="" id="slide-36" style="background:;">
+  
+  <hgroup>
+    <h2>中間レポート</h2>
+  </hgroup>
+  
+  <article data-timings="">
+    <ul>
+<li><p>レポートは3人以内のグループで作成しても良い．また，レポートにはRのソースコードを必ず添付すること．</p></li>
+<li><p>A4用紙に5枚以内．6枚目以降は採点対象としない．</p></li>
+<li><p>締め切りは10月14日（木）の23:59．</p></li>
+<li><p>締め切りを10分超過するごとに5点減点するので，時間通りに提出すること（急にパソコンが壊れた，提出先のメールアドレスを間違えたなどは遅れる理由とは認めません）．</p></li>
+<li><p>入院など，特別な事情がある場合は早めに相談してください．</p></li>
+<li><p>提出先は<a href="mailto:tkimura@kbs.keio.ac.jp">tkimura@kbs.keio.ac.jp</a></p></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+  
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='Rの基本操作（電卓としての利用）'>
+         1
+      </a>
+    </li>
+    
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='Rの基本操作（電卓としての利用）'>
+         2
+      </a>
+    </li>
+    
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='Rの基本操作（ベクトルの作成）'>
+         3
+      </a>
+    </li>
+    
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='Rの基本操作（変数の作成）'>
+         4
+      </a>
+    </li>
+    
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=5 title='Rの基本操作（変数の作成）'>
+         5
+      </a>
+    </li>
+    
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=6 title='Rの基本操作（変数の作成）'>
+         6
+      </a>
+    </li>
+    
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=7 title='Rの基本操作（関数の利用）'>
+         7
+      </a>
+    </li>
+    
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=8 title='Rの基本操作（関数の利用）'>
+         8
+      </a>
+    </li>
+    
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=9 title='Rの基本操作（ヘルプ）'>
+         9
+      </a>
+    </li>
+    
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=10 title='関数の作成'>
+         10
+      </a>
+    </li>
+    
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=11 title='パッケージの利用'>
+         11
+      </a>
+    </li>
+    
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=12 title='Rによるデータ操作'>
+         12
+      </a>
+    </li>
+    
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=13 title='読み込んだデータの確認'>
+         13
+      </a>
+    </li>
+    
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=14 title='読み込んだデータの確認'>
+         14
+      </a>
+    </li>
+    
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=15 title='読み込んだデータの確認'>
+         15
+      </a>
+    </li>
+    
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=16 title='読み込んだデータの確認'>
+         16
+      </a>
+    </li>
+    
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=17 title='分析データの作成'>
+         17
+      </a>
+    </li>
+    
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=18 title='分析データの作成'>
+         18
+      </a>
+    </li>
+    
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=19 title='分析データの作成'>
+         19
+      </a>
+    </li>
+    
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=20 title='分析データの作成'>
+         20
+      </a>
+    </li>
+    
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=21 title='パイプ演算子（本題からは逸れますが…）'>
+         21
+      </a>
+    </li>
+    
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=22 title='パイプ演算子'>
+         22
+      </a>
+    </li>
+    
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=23 title='パイプ演算子'>
+         23
+      </a>
+    </li>
+    
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=24 title='型変換'>
+         24
+      </a>
+    </li>
+    
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=25 title='列追加'>
+         25
+      </a>
+    </li>
+    
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=26 title='可視化'>
+         26
+      </a>
+    </li>
+    
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=27 title='可視化'>
+         27
+      </a>
+    </li>
+    
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=28 title='可視化'>
+         28
+      </a>
+    </li>
+    
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=29 title='可視化'>
+         29
+      </a>
+    </li>
+    
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=30 title='可視化'>
+         30
+      </a>
+    </li>
+    
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=31 title='回帰分析'>
+         31
+      </a>
+    </li>
+    
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=32 title='回帰分析'>
+         32
+      </a>
+    </li>
+    
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=33 title='回帰分析は役に立たない？'>
+         33
+      </a>
+    </li>
+    
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=34 title='回帰分析は役に立たない？'>
+         34
+      </a>
+    </li>
+    
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=35 title='中間レポート'>
+         35
+      </a>
+    </li>
+    
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=36 title='中間レポート'>
+         36
+      </a>
+    </li>
+    
+    </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script> -->
+  
+<script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+
+  <!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="libraries/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>
